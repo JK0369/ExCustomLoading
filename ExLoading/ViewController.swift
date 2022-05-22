@@ -29,17 +29,10 @@ class ViewController: UIViewController {
   }
   
   @objc private func didTapButton() {
-    guard !self.view.subviews.contains(where: { $0 is MyLoadingView }) else { return }
-    let loadingView = MyLoadingView()
-    self.view.addSubview(loadingView)
-    loadingView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
-    }
-    self.view.layoutIfNeeded()
-    loadingView.show()
+    MyLoadingView.shared.show()
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-      loadingView.hide {
+      MyLoadingView.shared.hide() {
         self.loadingButton.setTitle("로딩 종료!", for: .normal)
       }
     }
